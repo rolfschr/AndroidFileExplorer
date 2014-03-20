@@ -12,7 +12,7 @@ Install
 * Clone this repo (see link on github page of this repo) using the Git perspective in Eclipse.
 * In the Git perspective, right click on cloned repo -> Import Projects... -> Use the New Project Wizard -> Android Project from Existing Code -> Go to and select ~/git/AndroidFileExplorer and import
 
-(Alternatively, checkout the repo and directly use the New Project Wizard to import.)
+(Alternatively, checkout the repo [using command line git] and directly use the New Project Wizard to import.)
 
 ToDo
 ====
