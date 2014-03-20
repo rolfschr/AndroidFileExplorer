@@ -77,13 +77,22 @@ public class MainActivity extends Activity implements OnClickListener,
 	}
 
 	@Override
+	public void onBackPressed() {
+		moveUp();
+	}
+
+	@Override
 	public void onClick(View v) {
 		switch (v.getId()) {
 		case R.id.up:
-			String p = mCwd.getParent();
-			mCwd = (p != null ? new File(p) : ROOT_DIR);
-			updateEntriesAndViews();
+			moveUp();
 			break;
 		}
+	}
+
+	private void moveUp() {
+		String p = mCwd.getParent();
+		mCwd = (p != null ? new File(p) : ROOT_DIR);
+		updateEntriesAndViews();
 	}
 }
