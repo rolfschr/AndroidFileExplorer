@@ -12,33 +12,39 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
+import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity {
+public class MainActivity extends Activity implements OnClickListener,
+		OnItemClickListener {
+	private static final String tag = "MainActivity";
+	private static final File ROOT_DIR = File.listRoots()[0];
+	private File cwd;
+	private ArrayAdapter<File> adapter;
+	private List<File> entries;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 
-		File dir = File.listRoots()[0];
-		TextView cwdView = (TextView) findViewById(R.id.cwd);
-		cwdView.setText("[" + dir.toString() + "]");
+		entries = new ArrayList<File>();
+		adapter = getDirListArrayAdapter(entries);
 
-		List<File> entries = new ArrayList<File>();
-		File[] tmp = dir.listFiles(onlyDirFilter());
-		Arrays.sort(tmp);
-		entries.addAll(Arrays.asList(tmp));
-		tmp = dir.listFiles(onlyFileFilter());
-		Arrays.sort(tmp);
-		entries.addAll(Arrays.asList(tmp));
-
-		ArrayAdapter<File> adapter = DirListArrayAdapter(entries);
+		Button upButton = (Button) findViewById(R.id.up);
+		upButton.setOnClickListener(this);
 		ListView listView = (ListView) findViewById(R.id.entry_list_view);
 		listView.setAdapter(adapter);
+		listView.setOnItemClickListener(this);
+
+		cwd = ROOT_DIR;
+		updateEntriesAndViews();
 	}
 
 	@Override
@@ -66,18 +72,18 @@ public class MainActivity extends Activity {
 		};
 	}
 
-	private ArrayAdapter<File> DirListArrayAdapter(List<File> entries) {
-		return new ArrayAdapter<File>(this, R.layout.entry, entries) {
+	private ArrayAdapter<File> getDirListArrayAdapter(List<File> ref) {
+		return new ArrayAdapter<File>(this, R.layout.entry, ref) {
 
 			@Override
-			public View getView(int position, View convertView, ViewGroup parent) {
+			public View getView(int pos, View convertView, ViewGroup parent) {
 				if (convertView == null) {
 					LayoutInflater vi = (LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 					convertView = vi.inflate(R.layout.entry, null);
 				}
-				File f = getItem(position);
+				File f = getItem(pos);
 				TextView tv = (TextView) convertView.findViewById(R.id.entry);
-				tv.setText(f.toString());
+				tv.setText(f.getName());
 				if (f.isDirectory()) {
 					tv.setTextColor(getResources().getColor(R.color.dir_color));
 				} else {
@@ -88,5 +94,44 @@ public class MainActivity extends Activity {
 			}
 
 		};
+	}
+
+	private void updateEntriesAndViews() {
+		entries.clear();
+		File[] tmp = cwd.listFiles(onlyDirFilter());
+		if (tmp != null) {
+			Arrays.sort(tmp);
+			entries.addAll(Arrays.asList(tmp));
+		}
+		tmp = cwd.listFiles(onlyFileFilter());
+		if (tmp != null) {
+			Arrays.sort(tmp);
+			entries.addAll(Arrays.asList(tmp));
+		}
+		adapter.notifyDataSetChanged();
+		TextView cwdView = (TextView) findViewById(R.id.cwd);
+		cwdView.setText("[" + cwd.toString() + "]");
+	}
+
+	@Override
+	public void onItemClick(AdapterView<?> listView, View view, int pos, long id) {
+		File f = (File) listView.getItemAtPosition(pos);
+		if (f.isDirectory()) {
+			cwd = new File(f.toString());
+			updateEntriesAndViews();
+			// finish();
+			// startActivity(intent);
+		}
+	}
+
+	@Override
+	public void onClick(View v) {
+		switch (v.getId()) {
+		case R.id.up:
+			String p = cwd.getParent();
+			cwd = (p != null ? new File(p) : ROOT_DIR);
+			updateEntriesAndViews();
+			break;
+		}
 	}
 }
