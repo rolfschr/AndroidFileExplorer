@@ -21,6 +21,7 @@ import android.widget.TextView;
 public class MainActivity extends Activity implements OnClickListener,
 		OnItemClickListener {
 	private static final String tag = "MainActivity";
+	private static final String BUNDLE_CWD = "cwd";
 	private static final File ROOT_DIR = File.listRoots()[0];
 	private File mCwd;
 	private ArrayAdapter<File> mEntryAdapter;
@@ -40,7 +41,14 @@ public class MainActivity extends Activity implements OnClickListener,
 		listView.setAdapter(mEntryAdapter);
 		listView.setOnItemClickListener(this);
 
-		new DirListTask().execute(ROOT_DIR);
+		mCwd = ROOT_DIR;
+		if (savedInstanceState != null) {
+			String d = savedInstanceState.getString(BUNDLE_CWD);
+			if (d != null) {
+				mCwd = new File(d);
+			}
+		}
+		new DirListTask().execute();
 	}
 
 	@Override
@@ -54,7 +62,8 @@ public class MainActivity extends Activity implements OnClickListener,
 	public void onItemClick(AdapterView<?> listView, View view, int pos, long id) {
 		File f = (File) listView.getItemAtPosition(pos);
 		if (f.isDirectory()) {
-			new DirListTask().execute(new File(f.toString()));
+			mCwd = new File(f.toString());
+			new DirListTask().execute();
 		} else {
 			Util.openFileWithApp(this, f);
 		}
@@ -76,13 +85,19 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	private void moveUp() {
 		String p = mCwd.getParent();
-		new DirListTask().execute(p != null ? new File(p) : ROOT_DIR);
+		mCwd = (p != null ? new File(p) : ROOT_DIR);
+		new DirListTask().execute();
 	}
 
-	private class DirListTask extends AsyncTask<File, Void, Void> {
+	@Override
+	protected void onSaveInstanceState(Bundle outState) {
+		super.onSaveInstanceState(outState);
+		outState.putString(BUNDLE_CWD, mCwd.toString());
+	}
+
+	private class DirListTask extends AsyncTask<Void, Void, Void> {
 		@Override
-		protected Void doInBackground(File... params) {
-			mCwd = params[0];
+		protected Void doInBackground(Void... params) {
 			mEntries.clear();
 			File[] tmp = mCwd.listFiles(Util.onlyDirFilter());
 			if (tmp != null) {
