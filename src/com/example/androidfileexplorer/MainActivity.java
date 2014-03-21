@@ -55,6 +55,8 @@ public class MainActivity extends Activity implements OnClickListener,
 		File f = (File) listView.getItemAtPosition(pos);
 		if (f.isDirectory()) {
 			new DirListTask().execute(new File(f.toString()));
+		} else {
+			Util.openFileWithApp(this, f);
 		}
 	}
 
