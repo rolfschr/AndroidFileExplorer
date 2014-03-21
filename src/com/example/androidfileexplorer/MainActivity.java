@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.View;
@@ -39,8 +40,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		listView.setAdapter(mEntryAdapter);
 		listView.setOnItemClickListener(this);
 
-		mCwd = ROOT_DIR;
-		updateEntriesAndViews();
+		new DirListTask().execute(ROOT_DIR);
 	}
 
 	@Override
@@ -50,29 +50,11 @@ public class MainActivity extends Activity implements OnClickListener,
 		return true;
 	}
 
-	private void updateEntriesAndViews() {
-		mEntries.clear();
-		File[] tmp = mCwd.listFiles(Util.onlyDirFilter());
-		if (tmp != null) {
-			Arrays.sort(tmp);
-			mEntries.addAll(Arrays.asList(tmp));
-		}
-		tmp = mCwd.listFiles(Util.onlyFileFilter());
-		if (tmp != null) {
-			Arrays.sort(tmp);
-			mEntries.addAll(Arrays.asList(tmp));
-		}
-		mEntryAdapter.notifyDataSetChanged();
-		TextView cwdView = (TextView) findViewById(R.id.cwd);
-		cwdView.setText("[" + mCwd.toString() + "]");
-	}
-
 	@Override
 	public void onItemClick(AdapterView<?> listView, View view, int pos, long id) {
 		File f = (File) listView.getItemAtPosition(pos);
 		if (f.isDirectory()) {
-			mCwd = new File(f.toString());
-			updateEntriesAndViews();
+			new DirListTask().execute(new File(f.toString()));
 		}
 	}
 
@@ -92,7 +74,33 @@ public class MainActivity extends Activity implements OnClickListener,
 
 	private void moveUp() {
 		String p = mCwd.getParent();
-		mCwd = (p != null ? new File(p) : ROOT_DIR);
-		updateEntriesAndViews();
+		new DirListTask().execute(p != null ? new File(p) : ROOT_DIR);
+	}
+
+	private class DirListTask extends AsyncTask<File, Void, Void> {
+		@Override
+		protected Void doInBackground(File... params) {
+			mCwd = params[0];
+			mEntries.clear();
+			File[] tmp = mCwd.listFiles(Util.onlyDirFilter());
+			if (tmp != null) {
+				Arrays.sort(tmp);
+				mEntries.addAll(Arrays.asList(tmp));
+			}
+			tmp = mCwd.listFiles(Util.onlyFileFilter());
+			if (tmp != null) {
+				Arrays.sort(tmp);
+				mEntries.addAll(Arrays.asList(tmp));
+			}
+			return null;
+		}
+
+		@Override
+		protected void onPostExecute(Void result) {
+			mEntryAdapter.notifyDataSetChanged();
+			TextView cwdView = (TextView) findViewById(R.id.cwd);
+			cwdView.setText("[" + mCwd.toString() + "]");
+		}
+
 	}
 }
