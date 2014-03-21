@@ -18,6 +18,7 @@ ChangeLog
 =========
 
 [21Mar2014]
+* Fixed Activity state reset on rotate
 * Added possibility to open files with appropriate app
 * Set up Async Task to load directory entries in background
 [20Mar2014]
@@ -35,7 +36,7 @@ ToDo
 * Test back key when dialog is active
 * Abreviate directory length with dots when too long (?)
 * Remember list view position to make go-back-functionality more intuitive
-* Remember directory when phone gets turned
+* ~~~Remember directory when phone gets rotated~~~
 
 Ouestions
 =========
