@@ -32,11 +32,11 @@ ToDo
 * Check for external media in file system tree (?)
 * Add a test to check whether chosen directory and normale file colors equal (?)
 * Set up StrictMode config / How to use this?
-* ~~~Use ViewHolders/Background thread for the dir list (?)~~~
+* ~~Use ViewHolders/Background thread for the dir list (?)~~
 * Test back key when dialog is active
 * Abreviate directory length with dots when too long (?)
 * Remember list view position to make go-back-functionality more intuitive
-* ~~~Remember directory when phone gets rotated~~~
+* ~~Remember directory when phone gets rotated~~
 
 Ouestions
 =========
