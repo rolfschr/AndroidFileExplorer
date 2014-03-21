@@ -21,6 +21,7 @@ ChangeLog
 * Fixed Activity state reset on rotate
 * Added possibility to open files with appropriate app
 * Set up Async Task to load directory entries in background
+
 [20Mar2014]
 * Back key goes one up in directory structure
 * Implemented view holder pattern for directory entry list
@@ -38,7 +39,7 @@ ToDo
 * Remember list view position to make go-back-functionality more intuitive
 * ~~Remember directory when phone gets rotated~~
 
-Ouestions
+Questions
 =========
 
 * Should I use a ListFragment for the directory list in order to store parent (=previous) directories in the back stack? / When does it make sense to use a fragment in general?
