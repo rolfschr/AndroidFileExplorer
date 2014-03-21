@@ -14,9 +14,31 @@ Install
 
 (Alternatively, checkout the repo [using command line git] and directly use the New Project Wizard to import.)
 
+ChangeLog
+=========
+
+[21Mar2014]
+* Added possibility to open files with appropriate app
+* Set up Async Task to load directory entries in background
+[20Mar2014]
+* Back key goes one up in directory structure
+* Implemented view holder pattern for directory entry list
+* Implemented directory traversal
+
 ToDo
 ====
 
 * Check for external media in file system tree (?)
 * Add a test to check whether chosen directory and normale file colors equal (?)
+* Set up StrictMode config / How to use this?
+* ~~~Use ViewHolders/Background thread for the dir list (?)~~~
+* Test back key when dialog is active
+* Abreviate directory length with dots when too long (?)
+* Remember list view position to make go-back-functionality more intuitive
+* Remember directory when phone gets turned
+
+Ouestions
+=========
+
+* Should I use a ListFragment for the directory list in order to store parent (=previous) directories in the back stack? / When does it make sense to use a fragment in general?
 
