@@ -38,6 +38,9 @@ ToDo
 * Abreviate directory length with dots when too long (?)
 * Remember list view position to make go-back-functionality more intuitive
 * ~~Remember directory when phone gets rotated~~
+* Add icons to folders/files (?)
+* Declare Listeners in XML layout file (?)
+* Make context menu only visible for files.
 
 Questions
 =========
