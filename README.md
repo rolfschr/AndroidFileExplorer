@@ -17,6 +17,9 @@ Install
 ChangeLog
 =========
 
+[24Mar2014]
+* Add context menu and possibility to delete files
+
 [21Mar2014]
 * Fixed Activity state reset on rotate
 * Added possibility to open files with appropriate app
