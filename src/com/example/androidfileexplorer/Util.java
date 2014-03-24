@@ -7,6 +7,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.webkit.MimeTypeMap;
+import android.widget.Toast;
 
 public class Util {
 	public static FilenameFilter onlyDirFilter() {
@@ -42,4 +43,9 @@ public class Util {
 		context.startActivity(intent);
 	}
 
+	static public void toolTip(Context context, String msg) {
+		int duration = Toast.LENGTH_SHORT;
+		Toast toast = Toast.makeText(context, msg, duration);
+		toast.show();
+	}
 }
