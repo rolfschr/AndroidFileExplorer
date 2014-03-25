@@ -6,6 +6,7 @@ import java.io.FilenameFilter;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.preference.PreferenceManager;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
@@ -35,7 +36,8 @@ public class Util {
 		MimeTypeMap map = MimeTypeMap.getSingleton();
 		type = map.getMimeTypeFromExtension(extension);
 		if (type == null) {
-			type = "*/*";
+			type = PreferenceManager.getDefaultSharedPreferences(context)
+					.getString("pref_unknownMimeTypeHandler", "*/*");
 		}
 		Intent intent = new Intent();
 		intent.setAction(android.content.Intent.ACTION_VIEW);
