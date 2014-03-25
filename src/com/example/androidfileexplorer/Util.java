@@ -31,8 +31,7 @@ public class Util {
 
 	public static void openFileWithApp(Context context, File f) {
 		if (!f.canRead()) {
-			toolTip(context,
-					context.getResources().getString(R.string.no_read_perm));
+			toolTip(context, R.string.no_read_perm);
 		} else {
 			String type = null;
 			String extension = MimeTypeMap.getFileExtensionFromUrl(f.getName()
@@ -54,5 +53,9 @@ public class Util {
 		int duration = Toast.LENGTH_SHORT;
 		Toast toast = Toast.makeText(context, msg, duration);
 		toast.show();
+	}
+
+	static public void toolTip(Context context, int id) {
+		toolTip(context, context.getResources().getString(id));
 	}
 }
