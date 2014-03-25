@@ -30,19 +30,24 @@ public class Util {
 	}
 
 	public static void openFileWithApp(Context context, File f) {
-		String type = null;
-		String extension = MimeTypeMap.getFileExtensionFromUrl(f.getName()
-				.replace(" ", "%20"));
-		MimeTypeMap map = MimeTypeMap.getSingleton();
-		type = map.getMimeTypeFromExtension(extension);
-		if (type == null) {
-			type = PreferenceManager.getDefaultSharedPreferences(context)
-					.getString("pref_unknownMimeTypeHandler", "*/*");
+		if (!f.canRead()) {
+			toolTip(context,
+					context.getResources().getString(R.string.no_read_perm));
+		} else {
+			String type = null;
+			String extension = MimeTypeMap.getFileExtensionFromUrl(f.getName()
+					.replace(" ", "%20"));
+			MimeTypeMap map = MimeTypeMap.getSingleton();
+			type = map.getMimeTypeFromExtension(extension);
+			if (type == null) {
+				type = PreferenceManager.getDefaultSharedPreferences(context)
+						.getString("pref_unknownMimeTypeHandler", "*/*");
+			}
+			Intent intent = new Intent();
+			intent.setAction(android.content.Intent.ACTION_VIEW);
+			intent.setDataAndType(Uri.fromFile(f), type);
+			context.startActivity(intent);
 		}
-		Intent intent = new Intent();
-		intent.setAction(android.content.Intent.ACTION_VIEW);
-		intent.setDataAndType(Uri.fromFile(f), type);
-		context.startActivity(intent);
 	}
 
 	static public void toolTip(Context context, String msg) {
