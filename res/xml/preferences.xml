@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <ListPreference
+        android:defaultValue="@string/pref_unknownMimeTypeHandler_default"
+        android:dialogTitle="@string/pref_unknownMimeTypeHandler"
+        android:entries="@array/pref_unknownMimeTypeHandler_entries"
+        android:entryValues="@array/pref_unknownMimeTypeHandler_values"
+        android:key="pref_unknownMimeTypeHandler"
+        android:title="@string/pref_unknownMimeTypeHandler" />
+
+</PreferenceScreen>

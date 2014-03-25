@@ -6,5 +6,16 @@
     <string name="up">Up</string>
     <string name="rm_file">Delete</string>
     <string name="mv_file">Rename</string>
+    <string name="pref_unknownMimeTypeHandler">Default Handling for unknown files</string>
+    <string name="pref_unknownMimeTypeHandler_default">text/html</string>
+
+    <string-array name="pref_unknownMimeTypeHandler_entries">
+        <item>Choose App</item>
+        <item>Open as HTML file</item>
+    </string-array>
+    <string-array name="pref_unknownMimeTypeHandler_values">
+        <item>*/*</item>
+        <item>text/html</item>
+    </string-array>
 
 </resources>

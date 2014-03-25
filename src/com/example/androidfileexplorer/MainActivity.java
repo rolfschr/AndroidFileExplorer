@@ -6,8 +6,10 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.ActionMode;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -24,6 +26,7 @@ import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener,
 		OnItemClickListener, OnItemLongClickListener {
+	public static final boolean DEVELOPER_MODE = true;
 	private static final String tag = "MainActivity";
 	private static final String BUNDLE_CWD = "cwd";
 	private static final File ROOT_DIR = File.listRoots()[0];
@@ -37,6 +40,7 @@ public class MainActivity extends Activity implements OnClickListener,
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
+		setPreferences();
 
 		mEntries = new ArrayList<File>();
 		mEntryAdapter = new DirListArrayAdapter(this, R.id.entry, mEntries);
@@ -56,6 +60,19 @@ public class MainActivity extends Activity implements OnClickListener,
 			}
 		}
 		new DirListTask().execute();
+	}
+
+	private void setPreferences() {
+		boolean readAgain = false;
+		if (DEVELOPER_MODE) {
+			SharedPreferences sharedPref = PreferenceManager
+					.getDefaultSharedPreferences(this);
+			SharedPreferences.Editor editor = sharedPref.edit();
+			editor.clear();
+			editor.commit();
+			readAgain = true;
+		}
+		PreferenceManager.setDefaultValues(this, R.xml.preferences, readAgain);
 	}
 
 	@Override
