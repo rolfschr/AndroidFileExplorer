@@ -6,6 +6,7 @@ import java.util.Arrays;
 import java.util.List;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -125,6 +126,11 @@ public class MainActivity extends Activity implements OnClickListener,
 	protected void onSaveInstanceState(Bundle outState) {
 		super.onSaveInstanceState(outState);
 		outState.putString(BUNDLE_CWD, mCwd.toString());
+	}
+
+	public void openSettingsActivity(MenuItem item) {
+		Intent intent = new Intent(this, SettingsActivity.class);
+		startActivity(intent);
 	}
 
 	private class DirListTask extends AsyncTask<Void, Void, Void> {
