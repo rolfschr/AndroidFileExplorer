@@ -16,17 +16,15 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.widget.AdapterView;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
-public class MainActivity extends Activity implements OnClickListener,
-		OnItemClickListener, OnItemLongClickListener {
+public class MainActivity extends Activity implements OnItemClickListener,
+		OnItemLongClickListener {
 	public static final boolean DEVELOPER_MODE = true;
 	private static final String tag = "MainActivity";
 	private static final String BUNDLE_CWD = "cwd";
@@ -45,8 +43,6 @@ public class MainActivity extends Activity implements OnClickListener,
 		mEntries = new ArrayList<File>();
 		mEntryAdapter = new DirListArrayAdapter(this, R.id.entry, mEntries);
 
-		Button upButton = (Button) findViewById(R.id.up);
-		upButton.setOnClickListener(this);
 		listView = (ListView) findViewById(R.id.entry_list_view);
 		listView.setAdapter(mEntryAdapter);
 		listView.setOnItemClickListener(this);
@@ -107,16 +103,11 @@ public class MainActivity extends Activity implements OnClickListener,
 		moveUp();
 	}
 
-	@Override
-	public void onClick(View v) {
-		switch (v.getId()) {
-		case R.id.up:
-			moveUp();
-			break;
-		}
+	public void moveUp(View View) {
+		moveUp();
 	}
 
-	private void moveUp() {
+	public void moveUp() {
 		String p = mCwd.getParent();
 		mCwd = (p != null ? new File(p) : ROOT_DIR);
 		new DirListTask().execute();
