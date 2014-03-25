@@ -6,12 +6,12 @@
     <string name="up">Up</string>
     <string name="rm_file">Delete</string>
     <string name="mv_file">Rename</string>
-    <string name="pref_unknownMimeTypeHandler">Default Handling for unknown files</string>
+    <string name="pref_unknownMimeTypeHandler">How to open unknown file types</string>
     <string name="pref_unknownMimeTypeHandler_default">text/html</string>
 
     <string-array name="pref_unknownMimeTypeHandler_entries">
-        <item>Choose App</item>
-        <item>Open as HTML file</item>
+        <item>Choose App on my own</item>
+        <item>Open in browser</item>
     </string-array>
     <string-array name="pref_unknownMimeTypeHandler_values">
         <item>*/*</item>
