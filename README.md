@@ -17,8 +17,12 @@ Install
 ChangeLog
 =========
 
+[25Mar2014]
+* Open unknown files with browser by default
+* Added preferences.xml
+
 [24Mar2014]
-* Add context menu and possibility to delete files
+* Added context menu and possibility to delete files
 
 [21Mar2014]
 * Fixed Activity state reset on rotate
@@ -43,7 +47,9 @@ ToDo
 * ~~Remember directory when phone gets rotated~~
 * Add icons to folders/files (?)
 * Declare Listeners in XML layout file (?)
-* Make context menu only visible for files.
+* Make context menu only visible for files
+* ~~Check read rights before opening a file~~
+* Change color of selected view item
 
 Questions
 =========
