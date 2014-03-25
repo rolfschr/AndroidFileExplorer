@@ -38,10 +38,10 @@ public class DirListArrayAdapter extends ArrayAdapter<File> {
 		holder.text.setText(f.getName());
 		if (f.isDirectory()) {
 			holder.text.setTextColor(mContext.getResources().getColor(
-					R.color.dir_color));
+					R.color.blue));
 		} else {
 			holder.text.setTextColor(mContext.getResources().getColor(
-					R.color.file_color));
+					R.color.black));
 		}
 
 		return convertView;
