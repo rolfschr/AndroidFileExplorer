@@ -9,7 +9,8 @@
     <string name="no_read_perm">No permission to open this file :/</string>
     <string name="could_not_del_file">Could not delete this file /</string>
     <string name="file_deleted">Successfully deleted file</string>
-    <string name="pref_unknownMimeTypeHandler">How to open unknown file types</string>
+    <string name="pref_unknownMimeTypeHandler_title">Unknown file type handling</string>
+    <string name="pref_unknownMimeTypeHandler_dialogTitle">How to open unknown file types?</string>
     <string name="pref_unknownMimeTypeHandler_default">text/html</string>
 
     <string-array name="pref_unknownMimeTypeHandler_entries">
