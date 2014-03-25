@@ -12,6 +12,7 @@ import android.widget.TextView;
 
 public class DirListArrayAdapter extends ArrayAdapter<File> {
 	private final Context mContext;
+	private final LayoutInflater mLayoutInflater;
 
 	static class ViewHolder {
 		public TextView text;
@@ -20,14 +21,14 @@ public class DirListArrayAdapter extends ArrayAdapter<File> {
 	public DirListArrayAdapter(Context context, int resource, List<File> objects) {
 		super(context, resource, objects);
 		this.mContext = context;
+		mLayoutInflater = (LayoutInflater) mContext
+				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
 	}
 
 	@Override
 	public View getView(int pos, View convertView, ViewGroup parent) {
 		if (convertView == null) {
-			LayoutInflater vi = (LayoutInflater) mContext
-					.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-			convertView = vi.inflate(R.layout.entry, null);
+			convertView = mLayoutInflater.inflate(R.layout.entry, null);
 			ViewHolder holder = new ViewHolder();
 			holder.text = (TextView) convertView.findViewById(R.id.entry);
 			convertView.setTag(holder);
