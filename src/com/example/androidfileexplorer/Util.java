@@ -8,6 +8,7 @@ import android.content.Intent;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.webkit.MimeTypeMap;
+import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 public class Util {
@@ -46,6 +47,17 @@ public class Util {
 			intent.setAction(android.content.Intent.ACTION_VIEW);
 			intent.setDataAndType(Uri.fromFile(f), type);
 			context.startActivity(intent);
+		}
+	}
+
+	static public void deleteFile(Context context, ArrayAdapter<File> adapter,
+			File f) {
+		if (f.delete()) {
+			Util.toolTip(context, R.string.file_deleted);
+			adapter.remove(f);
+			adapter.notifyDataSetChanged();
+		} else {
+			Util.toolTip(context, R.string.could_not_del_file);
 		}
 	}
 

@@ -183,14 +183,7 @@ public class MainActivity extends Activity implements OnClickListener,
 					.getCheckedItemPosition());
 			switch (item.getItemId()) {
 			case R.id.rm_file:
-				if (f.delete()) {
-					Util.toolTip(MainActivity.this, f.toString() + " deleted");
-					mEntryAdapter.remove(f);
-					mEntryAdapter.notifyDataSetChanged();
-				} else {
-					Util.toolTip(MainActivity.this,
-							"Could not delete " + f.toString());
-				}
+				Util.deleteFile(MainActivity.this, mEntryAdapter, f);
 				mode.finish(); // Action picked, so close the CAB return true;
 			default:
 				return false;

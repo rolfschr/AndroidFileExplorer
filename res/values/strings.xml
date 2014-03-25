@@ -6,7 +6,9 @@
     <string name="up">Up</string>
     <string name="rm_file">Delete</string>
     <string name="mv_file">Rename</string>
-    <string name="no_read_perm">"No permission to open this file :/"</string>
+    <string name="no_read_perm">No permission to open this file :/</string>
+    <string name="could_not_del_file">Could not delete this file /</string>
+    <string name="file_deleted">Successfully deleted file</string>
     <string name="pref_unknownMimeTypeHandler">How to open unknown file types</string>
     <string name="pref_unknownMimeTypeHandler_default">text/html</string>
 
