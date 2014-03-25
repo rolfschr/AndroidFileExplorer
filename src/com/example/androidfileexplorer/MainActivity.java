@@ -34,7 +34,6 @@ public class MainActivity extends Activity implements OnClickListener,
 	private ArrayAdapter<File> mEntryAdapter;
 	private List<File> mEntries;
 	ListView listView;
-	int tmpPos;
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
@@ -94,13 +93,11 @@ public class MainActivity extends Activity implements OnClickListener,
 	}
 
 	@Override
-	public boolean onItemLongClick(AdapterView<?> listView, View view, int pos,
-			long id) {
+	public boolean onItemLongClick(AdapterView<?> adapterView, View view,
+			int pos, long id) {
 		view.setSelected(true);
-		// listView.setSelection(pos); // doesnt work :/
-		tmpPos = pos;
+		listView.setItemChecked(pos, true);
 		startActionMode(new FileContextMenu());
-
 		return true;
 	}
 
@@ -176,8 +173,8 @@ public class MainActivity extends Activity implements OnClickListener,
 
 		@Override
 		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-			// File f = (File) listView.getSelectedItem(); // doesnt work :/
-			File f = (File) listView.getItemAtPosition(tmpPos);
+			File f = (File) listView.getItemAtPosition(listView
+					.getCheckedItemPosition());
 			switch (item.getItemId()) {
 			case R.id.rm_file:
 				if (f.delete()) {
