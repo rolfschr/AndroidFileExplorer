@@ -11,22 +11,23 @@ import android.content.SharedPreferences;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.ActionMode;
+import android.view.ContextMenu;
+import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
+import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
-import android.widget.AdapterView.OnItemLongClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener,
-		OnItemClickListener, OnItemLongClickListener {
+		OnItemClickListener {
 	public static final boolean DEVELOPER_MODE = true;
 	private static final String tag = "MainActivity";
 	private static final String BUNDLE_CWD = "cwd";
@@ -50,7 +51,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		listView = (ListView) findViewById(R.id.entry_list_view);
 		listView.setAdapter(mEntryAdapter);
 		listView.setOnItemClickListener(this);
-		listView.setOnItemLongClickListener(this);
+		registerForContextMenu(listView);
 
 		mCwd = ROOT_DIR;
 		if (savedInstanceState != null) {
@@ -94,12 +95,33 @@ public class MainActivity extends Activity implements OnClickListener,
 	}
 
 	@Override
-	public boolean onItemLongClick(AdapterView<?> adapterView, View view,
-			int pos, long id) {
-		view.setSelected(true);
-		listView.setItemChecked(pos, true);
-		startActionMode(new FileContextMenu());
-		return true;
+	public void onCreateContextMenu(ContextMenu menu, View v,
+			ContextMenuInfo menuInfo) {
+		super.onCreateContextMenu(menu, v, menuInfo);
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
+		File f = (File) listView.getItemAtPosition(info.position);
+		if (f.isFile()) {
+			MenuInflater inflater = getMenuInflater();
+			inflater.inflate(R.menu.file_context_menu, menu);
+			listView.setItemChecked(info.position, true);
+		}
+	}
+
+	@Override
+	public boolean onContextItemSelected(MenuItem item) {
+		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
+				.getMenuInfo();
+		File f = (File) listView.getItemAtPosition(listView
+				.getCheckedItemPosition());
+		switch (item.getItemId()) {
+		case R.id.rm_file:
+			Util.deleteFile(this, mEntryAdapter, f);
+			return true;
+		case R.id.mv_file:
+			Util.renameFile(this, mEntryAdapter, f);
+		default:
+			return super.onContextItemSelected(item);
+		}
 	}
 
 	@Override
@@ -155,46 +177,6 @@ public class MainActivity extends Activity implements OnClickListener,
 			mEntryAdapter.notifyDataSetChanged();
 			TextView cwdView = (TextView) findViewById(R.id.cwd);
 			cwdView.setText("[" + mCwd.toString() + "]");
-		}
-	}
-
-	private class FileContextMenu implements ActionMode.Callback {
-
-		// Called when the action mode is created; startActionMode() was called
-		@Override
-		public boolean onCreateActionMode(ActionMode mode, Menu menu) {
-			// Inflate a menu resource providing context menu items
-			MenuInflater inflater = mode.getMenuInflater();
-			inflater.inflate(R.menu.file_context_menu, menu);
-			return true;
-		}
-
-		// Called each time the action mode is shown. Always called after
-		// onCreateActionMode, but
-		// may be called multiple times if the mode is invalidated.
-		@Override
-		public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
-			return false; // Return false if nothing is done
-		}
-
-		@Override
-		public boolean onActionItemClicked(ActionMode mode, MenuItem item) {
-			File f = (File) listView.getItemAtPosition(listView
-					.getCheckedItemPosition());
-			switch (item.getItemId()) {
-			case R.id.rm_file:
-				Util.deleteFile(MainActivity.this, mEntryAdapter, f);
-				mode.finish(); // Action picked, so close the CAB return true;
-			default:
-				return false;
-			}
-			// return false;
-		}
-
-		// Called when the user exits the action mode
-		@Override
-		public void onDestroyActionMode(ActionMode mode) {
-			mode = null;
 		}
 	}
 }

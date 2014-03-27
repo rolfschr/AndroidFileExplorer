@@ -64,6 +64,12 @@ public class Util {
 		}
 	}
 
+	public static void renameFile(Context context, ArrayAdapter<File> adapter,
+			File f) {
+		toolTip(context, "not yet implemented :(");
+
+	}
+
 	static public void toolTip(Context context, String msg) {
 		int duration = Toast.LENGTH_SHORT;
 		Toast toast = Toast.makeText(context, msg, duration);
@@ -73,4 +79,5 @@ public class Util {
 	static public void toolTip(Context context, int id) {
 		toolTip(context, context.getResources().getString(id));
 	}
+
 }
