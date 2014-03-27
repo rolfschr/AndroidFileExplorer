@@ -40,8 +40,11 @@ public class Util {
 			MimeTypeMap map = MimeTypeMap.getSingleton();
 			type = map.getMimeTypeFromExtension(extension);
 			if (type == null) {
-				type = PreferenceManager.getDefaultSharedPreferences(context)
-						.getString("pref_unknownMimeTypeHandler", "*/*");
+				type = PreferenceManager
+						.getDefaultSharedPreferences(context)
+						.getString(
+								SettingsActivity.PREF_UNKNOWN_MIME_TYPE_HANLDER,
+								"*/*");
 			}
 			Intent intent = new Intent();
 			intent.setAction(android.content.Intent.ACTION_VIEW);

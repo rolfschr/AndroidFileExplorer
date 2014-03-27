@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
 public class SettingsActivity extends Activity {
+	public static final String PREF_UNKNOWN_MIME_TYPE_HANLDER = "pref_unknownMimeTypeHandler";
+
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
