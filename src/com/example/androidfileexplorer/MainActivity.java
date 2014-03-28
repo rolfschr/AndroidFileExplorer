@@ -176,6 +176,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		protected void onPostExecute(Void result) {
 			mEntryAdapter.notifyDataSetChanged();
 			TextView cwdView = (TextView) findViewById(R.id.cwd);
+			listView.setSelection(0);
 			cwdView.setText("[" + mCwd.toString() + "]");
 		}
 	}
