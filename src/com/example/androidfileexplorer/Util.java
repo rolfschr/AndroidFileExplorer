@@ -3,6 +3,8 @@ package com.example.androidfileexplorer;
 import java.io.File;
 import java.io.FilenameFilter;
 
+import android.app.Activity;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
@@ -64,10 +66,15 @@ public class Util {
 		}
 	}
 
-	public static void renameFile(Context context, ArrayAdapter<File> adapter,
+	public static void renameFile(Activity context, ArrayAdapter<File> adapter,
 			File f) {
-		toolTip(context, "not yet implemented :(");
-
+		if (!f.canWrite()) {
+			toolTip(context, R.string.no_write_perm);
+		} else {
+			DialogFragment renameDialog = RenameFileDialog.newInstance(f);
+			renameDialog.show(context.getFragmentManager(),
+					RenameFileDialog.TAG);
+		}
 	}
 
 	static public void toolTip(Context context, String msg) {
