@@ -17,6 +17,10 @@ Install
 ChangeLog
 =========
 
+[27Mar2014]
+* Added rename file dialog
+[27Mar2014]
+* Make context menu when long pressing a file (instead of context action menu)
 [25Mar2014]
 * Open unknown files with browser by default
 * Added preferences.xml
@@ -55,4 +59,4 @@ Questions
 =========
 
 * Should I use a ListFragment for the directory list in order to store parent (=previous) directories in the back stack? / When does it make sense to use a fragment in general?
-
+* How to open umlaut files?
