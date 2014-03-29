@@ -47,15 +47,16 @@ ToDo
 * Add a test to check whether chosen directory and normale file colors equal (?)
 * Set up StrictMode config / How to use this?
 * ~~Use ViewHolders/Background thread for the dir list (?)~~
-* Test back key when dialog is active
+* ~~Test back key when dialog is active~~
 * Abreviate directory length with dots when too long (?)
 * Remember list view position to make go-back-functionality more intuitive
 * ~~Remember directory when phone gets rotated~~
 * Add icons to folders/files (?)
-* Declare Listeners in XML layout file (?)
-* Make context menu only visible for files
+* ~~Declare Listeners in XML layout file (?)~~
+* ~~Make context menu only visible for files~~
 * ~~Check read rights before opening a file~~
 * Change color of selected view item
+* Test rotation and fix crash
 
 Questions
 =========
