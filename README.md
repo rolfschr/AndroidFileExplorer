@@ -17,10 +17,12 @@ Install
 ChangeLog
 =========
 
-[27Mar2014]
+[28Mar2014]
 * Added rename file dialog
+
 [27Mar2014]
 * Make context menu when long pressing a file (instead of context action menu)
+
 [25Mar2014]
 * Open unknown files with browser by default
 * Added preferences.xml
