@@ -17,6 +17,9 @@ Install
 ChangeLog
 =========
 
+[01Apr2014]
+* Make it possible to change colors of dirs and files
+
 [28Mar2014]
 * Added rename file dialog
 
@@ -44,7 +47,7 @@ ToDo
 ====
 
 * Check for external media in file system tree (?)
-* Add a test to check whether chosen directory and normale file colors equal (?)
+* ~~Add a test to check whether chosen directory and normale file colors equal (?)~~
 * Set up StrictMode config / How to use this?
 * ~~Use ViewHolders/Background thread for the dir list (?)~~
 * ~~Test back key when dialog is active~~
