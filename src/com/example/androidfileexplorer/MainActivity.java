@@ -8,6 +8,7 @@ import java.util.List;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
@@ -27,7 +28,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 public class MainActivity extends Activity implements OnClickListener,
-		OnItemClickListener {
+		OnItemClickListener, OnSharedPreferenceChangeListener {
 	public static final boolean DEVELOPER_MODE = true;
 	private static final String tag = "MainActivity";
 	private static final String BUNDLE_CWD = "cwd";
@@ -42,6 +43,10 @@ public class MainActivity extends Activity implements OnClickListener,
 		super.onCreate(savedInstanceState);
 		setContentView(R.layout.activity_main);
 		setPreferences();
+
+		SharedPreferences prefs = PreferenceManager
+				.getDefaultSharedPreferences(this);
+		prefs.registerOnSharedPreferenceChangeListener(this);
 
 		mEntries = new ArrayList<File>();
 		mEntryAdapter = new DirListArrayAdapter(this, R.id.entry, mEntries);
@@ -61,6 +66,24 @@ public class MainActivity extends Activity implements OnClickListener,
 			}
 		}
 		new DirListTask().execute();
+	}
+
+	@Override
+	public void onSharedPreferenceChanged(SharedPreferences prefs, String key) {
+		if (SettingsActivity.PREF_DIR_COLOR.equals(key)
+				|| SettingsActivity.PREF_FILE_COLOR.equals(key)) {
+
+			String dirColor = PreferenceManager.getDefaultSharedPreferences(
+					this).getString(SettingsActivity.PREF_DIR_COLOR, "_");
+			String fileColor = PreferenceManager.getDefaultSharedPreferences(
+					this).getString(SettingsActivity.PREF_FILE_COLOR, "_");
+			if (!fileColor.equals(" ") && !dirColor.equals(" ")
+					&& fileColor.equals(dirColor)) {
+				Util.toolTip(this, R.string.dir_file_color_equal);
+			}
+			mEntryAdapter = new DirListArrayAdapter(this, R.id.entry, mEntries);
+			listView.setAdapter(mEntryAdapter);
+		}
 	}
 
 	private void setPreferences() {
@@ -154,7 +177,7 @@ public class MainActivity extends Activity implements OnClickListener,
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
 	}
-	
+
 	public void updateDirList() {
 		new DirListTask().execute();
 	}

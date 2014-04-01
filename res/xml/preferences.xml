@@ -9,4 +9,19 @@
         android:key="pref_unknownMimeTypeHandler"
         android:title="@string/pref_unknownMimeTypeHandler_title" />
 
+    <ListPreference
+        android:defaultValue="@string/pref_dirColor_default"
+        android:dialogTitle="@string/pref_dirColor_dialogTitle"
+        android:entries="@array/pref_dirColor_entries"
+        android:entryValues="@array/pref_dirColor_values"
+        android:key="pref_dirColor"
+        android:title="@string/pref_dirColor_title" />
+    
+    <ListPreference
+        android:defaultValue="@string/pref_fileColor_default"
+        android:dialogTitle="@string/pref_fileColor_dialogTitle"
+        android:entries="@array/pref_dirColor_entries"
+        android:entryValues="@array/pref_dirColor_values"
+        android:key="pref_fileColor"
+        android:title="@string/pref_fileColor_title" />
 </PreferenceScreen>

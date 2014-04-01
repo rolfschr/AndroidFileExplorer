@@ -16,6 +16,8 @@
     <string name="cancel">Cancel</string>
     <string name="successfully_renamed">Success!</string>
     <string name="renaming_failed">D\'ouh! :/</string>
+    <string name="dir_file_color_equal">Directory and file color equal now.</string>
+    
     <string name="pref_unknownMimeTypeHandler_title">Unknown file type handling</string>
     <string name="pref_unknownMimeTypeHandler_dialogTitle">How to open unknown file types?</string>
     <string name="pref_unknownMimeTypeHandler_default">text/html</string>
@@ -28,5 +30,25 @@
         <item>*/*</item>
         <item>text/html</item>
     </string-array>
+    
+    <string name="pref_dirColor_title">Directory color</string>
+    <string name="pref_dirColor_dialogTitle">Choose color for directories</string>
+    <string name="pref_dirColor_default">#654321</string>
+
+    <string-array name="pref_dirColor_entries">
+        <item>Black</item>
+        <item>Blue</item>
+        <item>Red</item>
+    </string-array>
+    <string-array name="pref_dirColor_values">
+        <item>#000000</item>
+        <item>#0000ff</item>
+        <item>#ff0000</item>
+    </string-array>
+    
+        
+    <string name="pref_fileColor_title">File color</string>
+    <string name="pref_fileColor_dialogTitle">Choose color for files</string>
+    <string name="pref_fileColor_default">#123456</string>
 
 </resources>

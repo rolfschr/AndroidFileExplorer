@@ -6,6 +6,8 @@ import android.preference.PreferenceFragment;
 
 public class SettingsActivity extends Activity {
 	public static final String PREF_UNKNOWN_MIME_TYPE_HANLDER = "pref_unknownMimeTypeHandler";
+	public static final String PREF_DIR_COLOR = "pref_dirColor";
+	public static final String PREF_FILE_COLOR = "pref_fileColor";
 
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {

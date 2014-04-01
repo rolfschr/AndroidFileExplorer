@@ -4,6 +4,8 @@ import java.io.File;
 import java.util.List;
 
 import android.content.Context;
+import android.graphics.Color;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +15,8 @@ import android.widget.TextView;
 public class DirListArrayAdapter extends ArrayAdapter<File> {
 	private final Context mContext;
 	private final LayoutInflater mLayoutInflater;
+	private String dirColor;
+	private String fileColor;
 
 	static class ViewHolder {
 		public TextView text;
@@ -23,6 +27,12 @@ public class DirListArrayAdapter extends ArrayAdapter<File> {
 		this.mContext = context;
 		mLayoutInflater = (LayoutInflater) mContext
 				.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+		dirColor = PreferenceManager.getDefaultSharedPreferences(mContext)
+				.getString(SettingsActivity.PREF_DIR_COLOR,
+						mContext.getString(R.string.pref_dirColor_default));
+		fileColor = PreferenceManager.getDefaultSharedPreferences(mContext)
+				.getString(SettingsActivity.PREF_FILE_COLOR,
+						mContext.getString(R.string.pref_fileColor_default));
 	}
 
 	@Override
@@ -37,11 +47,9 @@ public class DirListArrayAdapter extends ArrayAdapter<File> {
 		File f = getItem(pos);
 		holder.text.setText(f.getName());
 		if (f.isDirectory()) {
-			holder.text.setTextColor(mContext.getResources().getColor(
-					R.color.blue));
+			holder.text.setTextColor(Color.parseColor(dirColor));
 		} else {
-			holder.text.setTextColor(mContext.getResources().getColor(
-					R.color.black));
+			holder.text.setTextColor(Color.parseColor(fileColor));
 		}
 
 		return convertView;
