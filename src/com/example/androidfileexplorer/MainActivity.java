@@ -154,6 +154,10 @@ public class MainActivity extends Activity implements OnClickListener,
 		Intent intent = new Intent(this, SettingsActivity.class);
 		startActivity(intent);
 	}
+	
+	public void updateDirList() {
+		new DirListTask().execute();
+	}
 
 	private class DirListTask extends AsyncTask<Void, Void, Void> {
 		@Override

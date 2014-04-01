@@ -19,6 +19,7 @@ public class RenameFileDialog extends DialogFragment {
 	}
 
 	private static final String KEY_FILE = "file";
+	private MainActivity activity;
 	public static final String TAG = "rename_dialog";
 
 	static RenameFileDialog newInstance(File f) {
@@ -31,6 +32,7 @@ public class RenameFileDialog extends DialogFragment {
 
 	@Override
 	public Dialog onCreateDialog(Bundle savedInstanceState) {
+		activity = (MainActivity) getActivity();
 		AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
 		LayoutInflater inflater = getActivity().getLayoutInflater();
 		View layout = inflater.inflate(R.layout.rename_dialog, null);
@@ -46,10 +48,11 @@ public class RenameFileDialog extends DialogFragment {
 						File to = new File(f.getParent(), et.getText()
 								.toString());
 						if (f.renameTo(to)) {
-							Util.toolTip(getActivity(),
+							activity.updateDirList();
+							Util.toolTip(activity,
 									R.string.successfully_renamed);
 						} else {
-							Util.toolTip(getActivity(),
+							Util.toolTip(activity,
 									R.string.renaming_failed);
 						}
 					}
