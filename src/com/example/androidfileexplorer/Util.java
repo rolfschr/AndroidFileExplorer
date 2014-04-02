@@ -37,8 +37,8 @@ public class Util {
 			toolTip(context, R.string.no_read_perm);
 		} else {
 			String type = null;
-			String extension = MimeTypeMap.getFileExtensionFromUrl(f.getName()
-					.replace(" ", "%20"));
+			String extension = MimeTypeMap.getFileExtensionFromUrl(Uri.encode(f
+					.getName()));
 			MimeTypeMap map = MimeTypeMap.getSingleton();
 			type = map.getMimeTypeFromExtension(extension);
 			if (type == null) {
