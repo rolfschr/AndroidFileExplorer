@@ -183,27 +183,31 @@ public class MainActivity extends Activity implements OnClickListener,
 	}
 
 	private class DirListTask extends AsyncTask<Void, Void, Void> {
+		private List<File> newEntries;
+
 		@Override
 		protected Void doInBackground(Void... params) {
-			mEntries.clear();
+			newEntries = new ArrayList<File>();
 			File[] tmp = mCwd.listFiles(Util.onlyDirFilter());
 			if (tmp != null) {
 				Arrays.sort(tmp);
-				mEntries.addAll(Arrays.asList(tmp));
+				newEntries.addAll(Arrays.asList(tmp));
 			}
 			tmp = mCwd.listFiles(Util.onlyFileFilter());
 			if (tmp != null) {
 				Arrays.sort(tmp);
-				mEntries.addAll(Arrays.asList(tmp));
+				newEntries.addAll(Arrays.asList(tmp));
 			}
 			return null;
 		}
 
 		@Override
 		protected void onPostExecute(Void result) {
+			mEntries.clear();
+			mEntries.addAll(newEntries);
 			mEntryAdapter.notifyDataSetChanged();
-			TextView cwdView = (TextView) findViewById(R.id.cwd);
 			listView.setSelection(0);
+			TextView cwdView = (TextView) findViewById(R.id.cwd);
 			cwdView.setText("[" + mCwd.toString() + "]");
 		}
 	}
