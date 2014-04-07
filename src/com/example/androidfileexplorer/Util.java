@@ -2,6 +2,7 @@ package com.example.androidfileexplorer;
 
 import java.io.File;
 import java.io.FilenameFilter;
+import java.util.List;
 
 import android.app.Activity;
 import android.app.DialogFragment;
@@ -10,7 +11,6 @@ import android.content.Intent;
 import android.net.Uri;
 import android.preference.PreferenceManager;
 import android.webkit.MimeTypeMap;
-import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
 public class Util {
@@ -55,19 +55,21 @@ public class Util {
 		}
 	}
 
-	static public void deleteFile(Context context, ArrayAdapter<File> adapter,
-			File f) {
-		if (f.delete()) {
-			Util.toolTip(context, R.string.file_deleted);
-			adapter.remove(f);
-			adapter.notifyDataSetChanged();
-		} else {
-			Util.toolTip(context, R.string.could_not_del_file);
+	static public boolean deleteFiles(MainActivity context, List<File> files) {
+		boolean result = true;
+		for (File f : files) {
+			result = result && f.delete();
 		}
+		if (result) {
+			Util.toolTip(context, R.string.files_deleted);
+		} else {
+			Util.toolTip(context, R.string.could_not_del_files);
+		}
+		context.updateDirList();
+		return false;
 	}
 
-	public static void renameFile(Activity context, ArrayAdapter<File> adapter,
-			File f) {
+	public static void renameFile(Activity context, File f) {
 		if (!f.canWrite()) {
 			toolTip(context, R.string.no_write_perm);
 		} else {

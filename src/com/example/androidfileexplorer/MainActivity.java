@@ -12,15 +12,11 @@ import android.content.SharedPreferences.OnSharedPreferenceChangeListener;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.view.ContextMenu;
-import android.view.ContextMenu.ContextMenuInfo;
 import android.view.Menu;
-import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.AdapterView;
-import android.widget.AdapterView.AdapterContextMenuInfo;
 import android.widget.AdapterView.OnItemClickListener;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -56,7 +52,9 @@ public class MainActivity extends Activity implements OnClickListener,
 		listView = (ListView) findViewById(R.id.entry_list_view);
 		listView.setAdapter(mEntryAdapter);
 		listView.setOnItemClickListener(this);
-		registerForContextMenu(listView);
+		listView.setChoiceMode(ListView.CHOICE_MODE_MULTIPLE_MODAL);
+		listView.setMultiChoiceModeListener(new FileMultiChoiceModeListener(
+				this));
 
 		mCwd = ROOT_DIR;
 		if (savedInstanceState != null) {
@@ -114,36 +112,6 @@ public class MainActivity extends Activity implements OnClickListener,
 			new DirListTask().execute();
 		} else {
 			Util.openFileWithApp(this, f);
-		}
-	}
-
-	@Override
-	public void onCreateContextMenu(ContextMenu menu, View v,
-			ContextMenuInfo menuInfo) {
-		super.onCreateContextMenu(menu, v, menuInfo);
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) menuInfo;
-		File f = (File) listView.getItemAtPosition(info.position);
-		if (f.isFile()) {
-			MenuInflater inflater = getMenuInflater();
-			inflater.inflate(R.menu.file_context_menu, menu);
-			listView.setItemChecked(info.position, true);
-		}
-	}
-
-	@Override
-	public boolean onContextItemSelected(MenuItem item) {
-		AdapterContextMenuInfo info = (AdapterContextMenuInfo) item
-				.getMenuInfo();
-		File f = (File) listView.getItemAtPosition(listView
-				.getCheckedItemPosition());
-		switch (item.getItemId()) {
-		case R.id.rm_file:
-			Util.deleteFile(this, mEntryAdapter, f);
-			return true;
-		case R.id.mv_file:
-			Util.renameFile(this, mEntryAdapter, f);
-		default:
-			return super.onContextItemSelected(item);
 		}
 	}
 

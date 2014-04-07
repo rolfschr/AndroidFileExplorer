@@ -8,8 +8,8 @@
     <string name="mv_file">Rename</string>
     <string name="no_read_perm">"U can't touch this!"</string>
     <string name="no_write_perm">"U can't touch this!"</string>
-    <string name="could_not_del_file">Could not delete this file /</string>
-    <string name="file_deleted">Successfully deleted file</string>
+    <string name="could_not_del_files">Could not delete one or more files :/</string>
+    <string name="files_deleted">Successfully deleted files</string>
     <string name="rename_file">Rename</string>
     <string name="new_filename">new name</string>
     <string name="ok">OK</string>
@@ -17,6 +17,8 @@
     <string name="successfully_renamed">Success!</string>
     <string name="renaming_failed">D\'ouh! :/</string>
     <string name="dir_file_color_equal">Directory and file color equal now.</string>
+    <string name="internal_error">Internal error :(</string>
+    <string name="num_selected">Selected</string>
     
     <string name="pref_unknownMimeTypeHandler_title">Unknown file type handling</string>
     <string name="pref_unknownMimeTypeHandler_dialogTitle">How to open unknown file types?</string>
