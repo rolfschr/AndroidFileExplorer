@@ -17,6 +17,9 @@ Install
 ChangeLog
 =========
 
+[07Apr2014]
+* Add context action bar to rename/delete files. Remove context menu.
+
 [01Apr2014]
 * Make it possible to change colors of dirs and files
 
@@ -59,10 +62,10 @@ ToDo
 * ~~Make context menu only visible for files~~
 * ~~Check read rights before opening a file~~
 * Change color of selected view item
-* Test rotation and fix crash
+* ~~Test rotation and fix crash~~
 
 Questions
 =========
 
 * Should I use a ListFragment for the directory list in order to store parent (=previous) directories in the back stack? / When does it make sense to use a fragment in general?
-* How to open umlaut files?
+* ~~How to open umlaut files?~~
