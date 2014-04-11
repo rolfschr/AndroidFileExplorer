@@ -51,7 +51,7 @@ ToDo
 
 * Check for external media in file system tree (?)
 * ~~Add a test to check whether chosen directory and normale file colors equal (?)~~
-* Set up StrictMode config / How to use this?
+* ~~Set up StrictMode config / How to use this?~~
 * ~~Use ViewHolders/Background thread for the dir list (?)~~
 * ~~Test back key when dialog is active~~
 * Abreviate directory length with dots when too long (?)
@@ -61,7 +61,7 @@ ToDo
 * ~~Declare Listeners in XML layout file (?)~~
 * ~~Make context menu only visible for files~~
 * ~~Check read rights before opening a file~~
-* Change color of selected view item
+* ~~Change color of selected view item~~
 * ~~Test rotation and fix crash~~
 
 Questions
