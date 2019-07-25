@@ -54,7 +54,7 @@ ToDo
 * ~~Set up StrictMode config / How to use this?~~
 * ~~Use ViewHolders/Background thread for the dir list (?)~~
 * ~~Test back key when dialog is active~~
-* Abreviate directory length with dots when too long (?)
+* Abbreviate directory length with dots when too long (?)
 * Remember list view position to make go-back-functionality more intuitive
 * ~~Remember directory when phone gets rotated~~
 * Add icons to folders/files (?)
